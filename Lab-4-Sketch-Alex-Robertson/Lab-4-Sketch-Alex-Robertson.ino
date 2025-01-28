@@ -13,6 +13,9 @@ void setup() {
   u8x8.begin();
   u8x8.setFlipMode(1);
   u8x8.clear();
+
+  // Sets LED pin for alarm
+  pinMode(4, OUTPUT);
 }
 
 void loop() {
@@ -32,4 +35,18 @@ void loop() {
   u8x8.print("Humidity: ");
   u8x8.print(humidityValue);
   u8x8.print("%");
+
+  while (humidityValue >= 70.00) {
+    // Sets the LED to be on and the tone to sound
+    digitalWrite(4, HIGH);
+    tone(5, 1000);
+    // Waits one second
+    delay(1000);
+
+    // Sets the LED off and turns off the tone
+    digitalWrite(4, LOW);
+    noTone(5);
+    // Waits another second
+    delay(1000);
+  }
 }
